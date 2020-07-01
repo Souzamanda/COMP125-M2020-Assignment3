@@ -3,3 +3,8 @@
 .jumbotron{
     background-color: #30d5c210;
 }
+
+.btn-light{
+    background-color: #30D5C2;
+    color: white;
+}
