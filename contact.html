@@ -47,7 +47,8 @@
               <h1 class="display-4">Contact Me</h1>
               <hr>
               <div id="errorMessage" class="alert alert-danger" role="alert" hidden></div>
-  
+              <div id="successMessage" class="alert alert-success" role="alert" hidden></div>
+
               <form>
                 <div class="form-group">
                   <label for="firstName">First Name</label>
@@ -74,8 +75,8 @@
                   <textarea class="form-control" id="shortMessage" name="shortMessage" rows="3" aria-describedby="shortMessage"></textarea>
                 </div>
   
-                <button type="submit" class="btn btn-dark btn-lg"><i class="far fa-envelope"></i> Send</button>
-                <button type="reset" class="btn btn-light btn-lg"><i class="fas fa-redo"></i> Reset</button>
+                <button id="submitButton" type="submit" class="btn btn-dark btn-lg"><i class="far fa-envelope"></i> Send</button>
+                <button id="resetButton" type="reset" class="btn btn-light btn-lg"><i class="fas fa-redo"></i> Reset</button>
   
               </form>
             </div>

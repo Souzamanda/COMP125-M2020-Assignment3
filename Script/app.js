@@ -27,6 +27,7 @@
         return title;
     }
 
+    //Form validation
     function validateForm()
     {
         let contactForm = document.getElementsByTagName("form")[0];
@@ -36,6 +37,7 @@
             contactForm.noValidate = true;
             let errorMessage = document.getElementById("errorMessage");
             
+            //First Name validation
             let firstName = document.getElementById("firstName");
             firstName.addEventListener("blur", (event) =>
             {
@@ -51,7 +53,7 @@
                 }
             });
 
-            
+            //Last Name validation
             let lastName = document.getElementById("lastName");
             lastName.addEventListener("blur", (event) =>
             {
@@ -67,25 +69,27 @@
                 }
             });
 
-            let phoneNumber = document.getElementById("contactNumber");
-            phoneNumber.addEventListener("blur", (event) =>
+            //Contact number validation
+            let contactNumber = document.getElementById("contactNumber");
+            contactNumber.addEventListener("blur", (event) =>
             {
-                if(phoneNumber.value.match(/^\d{10}$/))
+                if(contactNumber.value.match(/^\d{10}$/))
                 {
                     errorMessage.hidden = true;
                 }
                 else
                 {
-                    phoneNumber.focus();
+                    contactNumber.focus();
                     errorMessage.hidden = false;
-                    errorMessage.textContent = "Please enter a valid phone number with 10 digits and no symbols";
+                    errorMessage.textContent = "Please enter a valid contact number with 10 digits and no symbols";
                 }
             });
 
-            let emailAdress = document.getElementById("contactNumber");
+            //Email validation
+            let emailAdress = document.getElementById("emailAdress");
             emailAdress.addEventListener("blur", (event) =>
             {
-                if(emailAdress.value.match(/^\d{10}$/))
+                if(emailAdress.value.match(/^([^\.-_])([\w\.-]+)@([a-zA-Z0-9-]+).([a-z]){2,4}(\.[a-z]{2,4})?$/))
                 {
                     errorMessage.hidden = true;
                 }
@@ -93,10 +97,25 @@
                 {
                     emailAdress.focus();
                     errorMessage.hidden = false;
-                    errorMessage.textContent = "Please enter a valid phone number with 10 digits and no symbols";
+                    errorMessage.textContent = "Please enter a valid email address";
                 }
             });
+
+            //Submit alert
+            let submitButton = document.getElementById("submitButton");
+            submitButton.addEventListener("click", (event) =>
+            {
+                event.preventDefault();
+                
+                successMessage.hidden = false;
+                successMessage.textContent = "Form successfully sent!"
+                console.log("Submit button clicked");
+            });
+
+            return true;
         }
+
+        return false;
 
     }
 
