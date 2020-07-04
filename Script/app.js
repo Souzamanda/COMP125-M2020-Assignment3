@@ -1,3 +1,8 @@
+//File name: app.js
+//Author's name: Amanda Cordeiro
+//Website name: Amanda Puttomatti's Portfolio
+//File description: JavaScript file
+
 "use strict";
 
 // IIFE - Immediately Ivoked Function Expression
