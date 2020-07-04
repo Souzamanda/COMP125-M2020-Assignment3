@@ -3,11 +3,13 @@
     Website name: Amanda Puttomatti's Portfolio
     File description: Custom CSS file */
 
+/* Change jumbotron background color*/
 .jumbotron{
     background-color: #30d5c210;
     overflow: hidden;
 }
 
+/* Change reset button color*/
 .btn-light{
     background-color: #30D5C2;
     color: white;
@@ -18,6 +20,7 @@ p{
     
 }
 
+/* Photos customization */
 #aboutMePhoto{
     max-width: 50%;
     float: right;
@@ -42,6 +45,7 @@ p{
     margin-left: 30px;
 }
 
+/* Grid customization */
 .row{
     margin-top: 20px;
     margin-bottom: 20px;
