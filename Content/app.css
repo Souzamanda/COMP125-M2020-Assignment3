@@ -10,13 +10,43 @@
     color: white;
 }
 
+p{
+    text-align: justify;
+    
+}
+
 #aboutMePhoto{
     max-width: 50%;
     float: right;
     margin-left: 30px;
 }
 
-p{
-    text-align: justify;
-    margin-top: 30px;
+#firstProjectPhoto{
+    max-width: 100%;
+    float: right;
+    margin-left: 30px;
 }
+
+#secondProjectPhoto{
+    max-width: 100%;
+    float: right;
+    margin-left: 30px;
+}
+
+#thirdProjectPhoto{
+    max-width: 100%;
+    float: right;
+    margin-left: 30px;
+}
+
+.row{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.col{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

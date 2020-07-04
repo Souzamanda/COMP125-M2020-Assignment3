@@ -110,6 +110,7 @@
                 successMessage.hidden = false;
                 successMessage.textContent = "Form successfully sent!"
                 console.log("Submit button clicked");
+
             });
 
             return true;
@@ -123,62 +124,76 @@
     function addParagraphsToJumbotron() 
     {
         
-        
+        //Paragraph About Me
         let aboutMeJumbotron = document.getElementById("aboutMeJumbotron");
         if (aboutMeJumbotron) 
         {
-            //step 2 create a new element
+            
             let personalMissonParagraph = document.createElement("p");
     
-            //step 3 configure the new element
             personalMissonParagraph.textContent =
                 `
                 "To learn and grow; and I want to use this apprenticeship to help people and make a significant difference."
                 `;
             
             personalMissonParagraph.setAttribute("class", "lead")
-    
-            //step 4 attach the new element
             aboutMeJumbotron.appendChild(personalMissonParagraph);
     
             return true;
         }
 
-        let projectsJumbotron = document.getElementById("projectsJumbotron");
-        if (projectsJumbotron) 
+        //Paragraph of First Project
+        let firstParagraph = document.getElementById("firstParagraph");
+        if (firstParagraph) 
         {
-            
-            //First Project
-            let firstProject = document.createElement("p");
+            let firstProjectParagraph = document.createElement("p");
     
-            firstProject.textContent =
+            firstProjectParagraph.textContent =
                 `
-                This is an example p paragraph.
-                Here is the next line.
+                This is a logo that I developed for my mother's business. 
+                It means "Seven Colors" and represents the rainbow colors
                 `;
     
-            firstProject.setAttribute("class", "lead")
+            firstProjectParagraph.setAttribute("class", "lead");
            
-            projectsJumbotron.appendChild(firstProject);
-    
-            //back to step 2 - create a new element
-            let newDiv = document.createElement("div");
-    
-            //step 3 - configure
-            newDiv.innerHTML =
-                `
-                <p id="secondParagraph">
-                This is the second paragrah.
-                </p>
-                `;
-    
-            //step 4 - attach the new element
-            projectsJumbotron.appendChild(newDiv);
-    
-            return true;
+            firstParagraph.appendChild(firstProjectParagraph);
+
         }
 
-        return false;
+        //Paragraph of second Project
+        let secondParagraph = document.getElementById("secondParagraph");
+        if (secondParagraph) 
+        {
+            let secondProjectParagraph = document.createElement("p");
+    
+            secondProjectParagraph.textContent =
+                `
+                This other project was a logo that I developed for my old business.
+                I used to develop and sell custom buttons with my husband back in or homecountry.
+                `;
+    
+            secondProjectParagraph.setAttribute("class", "lead");
+           
+            secondParagraph.appendChild(secondProjectParagraph);
+        }
+
+        //Paragraph of third Project
+        let thirdParagraph = document.getElementById("thirdParagraph");
+        if (thirdParagraph) 
+        {
+            let thirdProjectParagraph = document.createElement("p");
+    
+            thirdProjectParagraph.textContent =
+                `
+                This last logo was for a friend's brewry. 
+                It was draw directly on computer with a drawing tablet.
+                `;
+    
+            thirdProjectParagraph.setAttribute("class", "lead");
+           
+            thirdParagraph.appendChild(thirdProjectParagraph);
+        }
+
     }
 
     function Start ()
