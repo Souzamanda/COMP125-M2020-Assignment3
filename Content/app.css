@@ -2,9 +2,21 @@
 
 .jumbotron{
     background-color: #30d5c210;
+    overflow: hidden;
 }
 
 .btn-light{
     background-color: #30D5C2;
     color: white;
+}
+
+#aboutMePhoto{
+    max-width: 50%;
+    float: right;
+    margin-left: 30px;
+}
+
+p{
+    text-align: justify;
+    margin-top: 30px;
 }

@@ -119,6 +119,68 @@
 
     }
 
+    //Paragraphs in jumbotron
+    function addParagraphsToJumbotron() 
+    {
+        
+        
+        let aboutMeJumbotron = document.getElementById("aboutMeJumbotron");
+        if (aboutMeJumbotron) 
+        {
+            //step 2 create a new element
+            let personalMissonParagraph = document.createElement("p");
+    
+            //step 3 configure the new element
+            personalMissonParagraph.textContent =
+                `
+                "To learn and grow; and I want to use this apprenticeship to help people and make a significant difference."
+                `;
+            
+            personalMissonParagraph.setAttribute("class", "lead")
+    
+            //step 4 attach the new element
+            aboutMeJumbotron.appendChild(personalMissonParagraph);
+    
+            return true;
+        }
+
+        let projectsJumbotron = document.getElementById("projectsJumbotron");
+        if (projectsJumbotron) 
+        {
+            
+            //First Project
+            let firstProject = document.createElement("p");
+    
+            firstProject.textContent =
+                `
+                This is an example p paragraph.
+                Here is the next line.
+                `;
+    
+            firstProject.setAttribute("class", "lead")
+           
+            projectsJumbotron.appendChild(firstProject);
+    
+            //back to step 2 - create a new element
+            let newDiv = document.createElement("div");
+    
+            //step 3 - configure
+            newDiv.innerHTML =
+                `
+                <p id="secondParagraph">
+                This is the second paragrah.
+                </p>
+                `;
+    
+            //step 4 - attach the new element
+            projectsJumbotron.appendChild(newDiv);
+    
+            return true;
+        }
+
+        return false;
+    }
+
     function Start ()
     {
         console.log('%cApp has started...', "color:purple; font-size: 24px;");
@@ -133,6 +195,16 @@
         else
         {
             console.warn("Form not validated - does not exist");
+        }
+
+        let paragraph = addParagraphsToJumbotron();
+        if(paragraph) 
+        {
+            console.log("Successfully added paragraphs to jumbotron");
+        }
+        else
+        {
+            console.warn("Content not added to jumbotron - does not exist");
         }
     }
 
