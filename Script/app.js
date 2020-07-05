@@ -110,12 +110,10 @@
             let submitButton = document.getElementById("submitButton");
             submitButton.addEventListener("click", (event) =>
             {
-                //event.preventDefault();
+                event.preventDefault();
                 
-                successMessage.hidden = false;
-                successMessage.textContent = "Form successfully sent!"
-                console.log("Submit button clicked");
                 
+                window.location="index.html";
             });
 
             return true;
