@@ -123,6 +123,30 @@
 
     }
 
+    function loadHeader()
+    {
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/partials/header.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let header = document.getElementsByTagName("header")[0];
+                let headerData = XHR.responseText;
+                header.innerHTML = headerData;
+
+                highLightActiveLink();
+            }
+        });
+    }
+
     //Paragraphs in jumbotron
     function addParagraphsToJumbotron() 
     {
@@ -224,8 +248,13 @@
         {
             console.warn("Content not added to jumbotron - does not exist");
         }
+
+        if (title == "projects")
+        {
+            loadHeader();
+        }
     }
 
-window.addEventListener("load", Start);
+    window.addEventListener("load", Start);
 
 })();
