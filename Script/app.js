@@ -9,14 +9,17 @@
 
 (function()
 {
-
-    function highLightActiveLink()
+    function getPageTitle(title) 
     {
-        let title = document.title
+        title = document.title
         title = title.toLowerCase();
         console.log(`The title is ${title}`);
+        return title;
+    }
 
-        let navbarAnchors = document.querySelectorAll("li a");
+    function highLightActiveLink(title)
+    {
+       let navbarAnchors = document.querySelectorAll("li a");
 
         for (const anchor of navbarAnchors)
         {
@@ -28,8 +31,6 @@
                 anchor.className = "nav-link active";
             }
         }
-
-        return title;
     }
 
     //Form validation
@@ -123,7 +124,7 @@
 
     }
 
-    function loadHeader()
+    function loadHeader(title)
     {
         // Create XHR object
         let XHR = new XMLHttpRequest();
@@ -142,7 +143,7 @@
                 let headerData = XHR.responseText;
                 header.innerHTML = headerData;
 
-                highLightActiveLink();
+                highLightActiveLink(title);
             }
         });
     }
@@ -223,20 +224,48 @@
 
     }
 
+    function loadFooter()
+    {
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/partials/footer.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let footer = document.getElementsByTagName("footer")[0];
+                let footerData = XHR.responseText;
+                footer.innerHTML = footerData;
+
+                highLightActiveLink();
+            }
+        });
+    }
+
     function Start ()
     {
         console.log('%cApp has started...', "color:purple; font-size: 24px;");
+        
+        let title = document.title;
+        title = getPageTitle(title);
+        loadHeader();
 
-        let title = highLightActiveLink();
-
-        let formValidation = validateForm();
-        if(formValidation)
+        //Content switche
+        switch(title)
         {
-            console.log("Successfully validated form");
-        }
-        else
-        {
-            console.warn("Form not validated - does not exist");
+            case "home":
+                break;
+            case "projects":
+                break;
+            case "contact":
+                validateForm();
+                break;
         }
 
         let paragraph = addParagraphsToJumbotron();
@@ -249,10 +278,8 @@
             console.warn("Content not added to jumbotron - does not exist");
         }
 
-        if (title == "projects")
-        {
-            loadHeader();
-        }
+        loadFooter();
+
     }
 
     window.addEventListener("load", Start);
