@@ -38,90 +38,84 @@
     {
         let contactForm = document.getElementsByTagName("form")[0];
 
-        if(contactForm)
+        contactForm.noValidate = true;
+        let errorMessage = document.getElementById("errorMessage");
+        
+        //First Name validation
+        let firstName = document.getElementById("firstName");
+        firstName.addEventListener("blur", (event) =>
         {
-            contactForm.noValidate = true;
-            let errorMessage = document.getElementById("errorMessage");
+            if(firstName.value.length < 2)
+            {
+                firstName.focus();
+                errorMessage.hidden = false;
+                errorMessage.textContent = "Please enter a valid first name. With at least 2 characters.";
+            }
+            else
+            {
+                errorMessage.hidden = true;
+            }
+        });
+
+        //Last Name validation
+        let lastName = document.getElementById("lastName");
+        lastName.addEventListener("blur", (event) =>
+        {
+            if(lastName.value.length < 2)
+            {
+                lastName.focus();
+                errorMessage.hidden = false;
+                errorMessage.textContent = "Please enter a valid last name. With at least 2 characters.";
+            }
+            else
+            {
+                errorMessage.hidden = true;
+            }
+        });
+
+        //Contact number validation
+        let contactNumber = document.getElementById("contactNumber");
+        contactNumber.addEventListener("blur", (event) =>
+        {
+            if(contactNumber.value.match(/^\d{10}$/))
+            {
+                errorMessage.hidden = true;
+            }
+            else
+            {
+                contactNumber.focus();
+                errorMessage.hidden = false;
+                errorMessage.textContent = "Please enter a valid contact number with 10 digits and no symbols";
+            }
+        });
+
+        //Email validation
+        let emailAdress = document.getElementById("emailAdress");
+        emailAdress.addEventListener("blur", (event) =>
+        {
+            if(emailAdress.value.match(/^([^\.-_])([\w\.-]+)@([a-zA-Z0-9-]+).([a-z]){2,4}(\.[a-z]{2,4})?$/))
+            {
+                errorMessage.hidden = true;
+            }
+            else
+            {
+                emailAdress.focus();
+                errorMessage.hidden = false;
+                errorMessage.textContent = "Please enter a valid email address";
+            }
+        });
+
+        //Submit alert
+        let submitButton = document.getElementById("submitButton");
+        submitButton.addEventListener("click", (event) =>
+        {
+            event.preventDefault();
             
-            //First Name validation
-            let firstName = document.getElementById("firstName");
-            firstName.addEventListener("blur", (event) =>
-            {
-                if(firstName.value.length < 2)
-                {
-                    firstName.focus();
-                    errorMessage.hidden = false;
-                    errorMessage.textContent = "Please enter a valid first name. With at least 2 characters.";
-                }
-                else
-                {
-                    errorMessage.hidden = true;
-                }
-            });
+            
+            window.location="index.html";
+        });
 
-            //Last Name validation
-            let lastName = document.getElementById("lastName");
-            lastName.addEventListener("blur", (event) =>
-            {
-                if(lastName.value.length < 2)
-                {
-                    lastName.focus();
-                    errorMessage.hidden = false;
-                    errorMessage.textContent = "Please enter a valid last name. With at least 2 characters.";
-                }
-                else
-                {
-                    errorMessage.hidden = true;
-                }
-            });
-
-            //Contact number validation
-            let contactNumber = document.getElementById("contactNumber");
-            contactNumber.addEventListener("blur", (event) =>
-            {
-                if(contactNumber.value.match(/^\d{10}$/))
-                {
-                    errorMessage.hidden = true;
-                }
-                else
-                {
-                    contactNumber.focus();
-                    errorMessage.hidden = false;
-                    errorMessage.textContent = "Please enter a valid contact number with 10 digits and no symbols";
-                }
-            });
-
-            //Email validation
-            let emailAdress = document.getElementById("emailAdress");
-            emailAdress.addEventListener("blur", (event) =>
-            {
-                if(emailAdress.value.match(/^([^\.-_])([\w\.-]+)@([a-zA-Z0-9-]+).([a-z]){2,4}(\.[a-z]{2,4})?$/))
-                {
-                    errorMessage.hidden = true;
-                }
-                else
-                {
-                    emailAdress.focus();
-                    errorMessage.hidden = false;
-                    errorMessage.textContent = "Please enter a valid email address";
-                }
-            });
-
-            //Submit alert
-            let submitButton = document.getElementById("submitButton");
-            submitButton.addEventListener("click", (event) =>
-            {
-                event.preventDefault();
-                
-                
-                window.location="index.html";
-            });
-
-            return true;
-        }
-
-        return false;
-
+        return true;
     }
 
     function loadHeader(title)
@@ -156,18 +150,40 @@
         let aboutMeJumbotron = document.getElementById("aboutMeJumbotron");
         if (aboutMeJumbotron) 
         {
-            
-            let personalMissonParagraph = document.createElement("p");
-    
-            personalMissonParagraph.textContent =
-                `
-                "To learn and grow; and I want to use this apprenticeship to help people and make a significant difference."
-                `;
-            
-            personalMissonParagraph.setAttribute("class", "lead")
-            aboutMeJumbotron.appendChild(personalMissonParagraph);
-    
-            return true;
+            // Create XHR object
+            let XHR = new XMLHttpRequest();
+
+            // Configure the message
+            XHR.open("GET", "./Data/paragraphs.json");
+
+            // Execute the request
+            XHR.send();
+
+            // Register readystate event
+            XHR.addEventListener("readystatechange", function(){
+                if((XHR.readyState === 4) && (XHR.status === 200))
+                {
+                    let paragraphDataFile = JSON.parse(XHR.responseText);
+                    let paragraphs = paragraphDataFile.paragraphs;
+
+                    console.log(paragraphs)
+                    let paragraphList = [];
+
+                    for (const record of paragraphs) 
+                    {
+                        let phrase = new objects.Paragraphs();
+                        phrase.setParagraphs(record);
+                        paragraphList.push(phrase);
+                    }
+                    
+                    let aboutMeJumbotron = document.getElementById("aboutMeJumbotron")
+                    let personalMissonParagraph = document.createElement("p");
+                    personalMissonParagraph.innerHTML = `${paragraphList[0].paragraph}`;
+                    personalMissonParagraph.setAttribute("class", "lead")
+                    aboutMeJumbotron.appendChild(personalMissonParagraph);
+                    
+                }
+            });
         }
 
         //Paragraph of First Project
