@@ -142,48 +142,124 @@
         });
     }
 
+    function homeContent()
+    {
+        console.log ("Home Content loading...")
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/content/home.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let main = document.getElementsByTagName("main")[0];
+                let mainData = XHR.responseText;
+                main.innerHTML = mainData;
+            }
+        });
+    }
+
+    function projectsContent()
+    {
+        console.log ("Projects Content loading...")
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/content/projects.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let main = document.getElementsByTagName("main")[0];
+                let mainData = XHR.responseText;
+                main.innerHTML = mainData;
+            }
+        });
+    }
+
+    function contactContent()
+    {
+        console.log ("Contact Content loading...")
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/content/contact.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let main = document.getElementsByTagName("main")[0];
+                let mainData = XHR.responseText;
+                main.innerHTML = mainData;
+                validateForm();
+            }
+        });
+    }
+
     //Paragraphs in jumbotron
     function addParagraphsToJumbotron() 
     {
         
         //Paragraph About Me
-        let aboutMeJumbotron = document.getElementById("aboutMeJumbotron");
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+        
+        // Configure the message
+        XHR.open("GET", "./Data/paragraphs.json");
+        
+        // Execute the request
+        XHR.send();
+        
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let paragraphDataFile = JSON.parse(XHR.responseText);
+                let paragraphs = paragraphDataFile.paragraphs;
+
+                console.log(paragraphs)
+                let paragraphList = [];
+                
+                for (const record of paragraphs) 
+                {
+                    let phrase = new objects.Paragraphs();
+                    phrase.setParagraphs(record);
+                    paragraphList.push(phrase);
+                }
+            
+                let personalMissonParagraph = document.createElement("p");
+                personalMissonParagraph.innerHTML = `${paragraphList[0].paragraph}`;
+                personalMissonParagraph.setAttribute("class", "lead")
+                aboutMeJumbotron.appendChild(personalMissonParagraph);
+                
+            }
+        });
+
+        /*              
+let firstParagraph = document.getElementById("firstParagraph");
+                let firstProjectParagraph = document.createElement("p");
+                firstProjectParagraph.innerHTML = `${paragraphList[0].paragraph}`;
+                firstProjectParagraph.setAttribute("class", "lead");
+                firstParagraph.appendChild(firstProjectParagraph); */
+        /* let aboutMeJumbotron = document.getElementById("aboutMeJumbotron");
         if (aboutMeJumbotron) 
         {
-            // Create XHR object
-            let XHR = new XMLHttpRequest();
-
-            // Configure the message
-            XHR.open("GET", "./Data/paragraphs.json");
-
-            // Execute the request
-            XHR.send();
-
-            // Register readystate event
-            XHR.addEventListener("readystatechange", function(){
-                if((XHR.readyState === 4) && (XHR.status === 200))
-                {
-                    let paragraphDataFile = JSON.parse(XHR.responseText);
-                    let paragraphs = paragraphDataFile.paragraphs;
-
-                    console.log(paragraphs)
-                    let paragraphList = [];
-
-                    for (const record of paragraphs) 
-                    {
-                        let phrase = new objects.Paragraphs();
-                        phrase.setParagraphs(record);
-                        paragraphList.push(phrase);
-                    }
-                    
-                    let aboutMeJumbotron = document.getElementById("aboutMeJumbotron")
-                    let personalMissonParagraph = document.createElement("p");
-                    personalMissonParagraph.innerHTML = `${paragraphList[0].paragraph}`;
-                    personalMissonParagraph.setAttribute("class", "lead")
-                    aboutMeJumbotron.appendChild(personalMissonParagraph);
-                    
-                }
-            });
         }
 
         //Paragraph of First Project
@@ -202,8 +278,8 @@
            
             firstParagraph.appendChild(firstProjectParagraph);
 
-        }
-
+        }*/
+/*
         //Paragraph of second Project
         let secondParagraph = document.getElementById("secondParagraph");
         if (secondParagraph) 
@@ -236,7 +312,7 @@
             thirdProjectParagraph.setAttribute("class", "lead");
            
             thirdParagraph.appendChild(thirdProjectParagraph);
-        }
+        } */
 
     }
 
@@ -272,15 +348,19 @@
         title = getPageTitle(title);
         loadHeader();
 
-        //Content switche
+        let main = document.getElementsByTagName("main"[0]);
+
+        //Content switcher
         switch(title)
         {
             case "home":
+                homeContent();
                 break;
             case "projects":
+                projectsContent()
                 break;
             case "contact":
-                validateForm();
+                contactContent();
                 break;
         }
 
