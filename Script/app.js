@@ -107,7 +107,7 @@
             event.preventDefault();
             
             
-            window.location="index.html";
+            setPageContent("Home");
         });
 
         return true;
@@ -116,7 +116,7 @@
     function setPageContent(id)
     {
         document.title = id;
-        window.history.pushState("", id, "/"+id.toLowerCase());
+        window.history.pushState("", id, `/${id.toLowerCase()}`);
         
         highLightActiveLink(id);
 
@@ -169,76 +169,6 @@
                     });                   
                 }
 
-            }
-        });
-    }
-
-    function homeContent()
-    {
-        console.log ("Home Content loading...")
-        // Create XHR object
-        let XHR = new XMLHttpRequest();
-
-        // Configure the message
-        XHR.open("GET", "./Views/content/home.html");
-
-        // Execute the request
-        XHR.send();
-
-        // Register readystate event
-        XHR.addEventListener("readystatechange", function(){
-            if((XHR.readyState === 4) && (XHR.status === 200))
-            {
-                let main = document.getElementsByTagName("main")[0];
-                let mainData = XHR.responseText;
-                main.innerHTML = mainData;
-            }
-        });
-    }
-
-    function projectsContent()
-    {
-        console.log ("Projects Content loading...")
-        // Create XHR object
-        let XHR = new XMLHttpRequest();
-
-        // Configure the message
-        XHR.open("GET", "./Views/content/projects.html");
-
-        // Execute the request
-        XHR.send();
-
-        // Register readystate event
-        XHR.addEventListener("readystatechange", function(){
-            if((XHR.readyState === 4) && (XHR.status === 200))
-            {
-                let main = document.getElementsByTagName("main")[0];
-                let mainData = XHR.responseText;
-                main.innerHTML = mainData;
-            }
-        });
-    }
-
-    function contactContent()
-    {
-        console.log ("Contact Content loading...")
-        // Create XHR object
-        let XHR = new XMLHttpRequest();
-
-        // Configure the message
-        XHR.open("GET", "./Views/content/contact.html");
-
-        // Execute the request
-        XHR.send();
-
-        // Register readystate event
-        XHR.addEventListener("readystatechange", function(){
-            if((XHR.readyState === 4) && (XHR.status === 200))
-            {
-                let main = document.getElementsByTagName("main")[0];
-                let mainData = XHR.responseText;
-                main.innerHTML = mainData;
-                validateForm();
             }
         });
     }
@@ -345,7 +275,7 @@ let firstParagraph = document.getElementById("firstParagraph");
             thirdParagraph.appendChild(thirdProjectParagraph);
         } */
 
-    }
+    }  
 
     function loadFooter()
     {
@@ -365,11 +295,80 @@ let firstParagraph = document.getElementById("firstParagraph");
                 let footer = document.getElementsByTagName("footer")[0];
                 let footerData = XHR.responseText;
                 footer.innerHTML = footerData;
-
-                highLightActiveLink();
             }
         });
     }
+
+    function homeContent()
+    {
+        console.log ("Home Content loading...")
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/content/home.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let main = document.getElementsByTagName("main")[0];
+                let mainData = XHR.responseText;
+                main.innerHTML = mainData;
+            }
+        });
+    }
+
+    function projectsContent()
+    {
+        console.log ("Projects Content loading...")
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/content/projects.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let main = document.getElementsByTagName("main")[0];
+                let mainData = XHR.responseText;
+                main.innerHTML = mainData;
+            }
+        });
+    }
+
+    function contactContent()
+    {
+        console.log ("Contact Content loading...")
+        // Create XHR object
+        let XHR = new XMLHttpRequest();
+
+        // Configure the message
+        XHR.open("GET", "./Views/content/contact.html");
+
+        // Execute the request
+        XHR.send();
+
+        // Register readystate event
+        XHR.addEventListener("readystatechange", function(){
+            if((XHR.readyState === 4) && (XHR.status === 200))
+            {
+                let main = document.getElementsByTagName("main")[0];
+                let mainData = XHR.responseText;
+                main.innerHTML = mainData;
+                validateForm();
+            }
+        });
+    }
+
 
     function Start ()
     {
