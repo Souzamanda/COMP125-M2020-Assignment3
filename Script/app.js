@@ -113,7 +113,31 @@
         return true;
     }
 
-    function loadHeader()
+    function setPageContent(id)
+    {
+        document.title = id;
+        window.history.pushState("", id, "/"+id.toLowerCase());
+        
+        highLightActiveLink(id);
+
+        //Content switcher
+        switch(id)
+        {
+            case "Home":
+                homeContent();
+                break;
+            case "Projects":
+                projectsContent()
+                break;
+            case "Contact":
+                contactContent();
+                break;
+        }
+
+        loadFooter();
+    }
+
+    function initializeSite()
     {
         // Create XHR object
         let XHR = new XMLHttpRequest();
@@ -132,31 +156,16 @@
                 let headerData = XHR.responseText;
                 header.innerHTML = headerData;
 
+                setPageContent("Home");
+
                 let navLinks = document.querySelectorAll("a");
                 for (const link of navLinks) 
                 {
                     link.addEventListener("click", (event) => {
                         event.preventDefault();
 
-                        let id = link.getAttribute("id")
-                        document.title = id;
-                        window.history.pushState("", id, "/"+id.toLowerCase());
-                        
-                        highLightActiveLink(id);
-
-                        //Content switcher
-                        switch(id)
-                        {
-                            case "Home":
-                                homeContent();
-                                break;
-                            case "Projects":
-                                projectsContent()
-                                break;
-                            case "Contact":
-                                contactContent();
-                                break;
-                        }
+                        let id = link.getAttribute("id");
+                        setPageContent(id);
                     });                   
                 }
 
@@ -366,8 +375,7 @@ let firstParagraph = document.getElementById("firstParagraph");
     {
         console.log('%cApp has started...', "color:purple; font-size: 24px;");
        
-        homeContent();
-        loadHeader();
+        initializeSite();
 
         /* let paragraph = addParagraphsToJumbotron();
         if(paragraph) 
@@ -378,8 +386,6 @@ let firstParagraph = document.getElementById("firstParagraph");
         {
             console.warn("Content not added to jumbotron - does not exist");
         } */
-
-        loadFooter();
 
     }
 
