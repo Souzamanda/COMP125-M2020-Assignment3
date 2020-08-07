@@ -72,7 +72,7 @@
         let contactNumber = document.getElementById("contactNumber");
         contactNumber.addEventListener("blur", (event) =>
         {
-            if(contactNumber.value.match(/^\d{10}$/))
+            if(contactNumber.value.match(/^[(]{0,1}\d{3}[)]{0,1}[-\s\.]{0,1}\d{3}[-\s\.]{0,1}\d{4}$/))
             {
                 errorMessage.hidden = true;
             }
@@ -88,7 +88,7 @@
         let emailAdress = document.getElementById("emailAdress");
         emailAdress.addEventListener("blur", (event) =>
         {
-            if(emailAdress.value.match(/^([^\.-_])([\w\.-]+)@([a-zA-Z0-9-]+).([a-z]){2,4}(\.[a-z]{2,4})?$/))
+            if(emailAdress.value.match(/^([^\.-_])([\w\.-]+)@([a-zA-Z0-9-]+).([a-z]){2,4}(\.[a-z]{2,4})$/))
             {
                 errorMessage.hidden = true;
             }
@@ -173,110 +173,6 @@
         });
     }
 
-    //Paragraphs in jumbotron
-    function addParagraphsToJumbotron() 
-    {
-        
-        //Paragraph About Me
-        // Create XHR object
-        let XHR = new XMLHttpRequest();
-        
-        // Configure the message
-        XHR.open("GET", "./Data/paragraphs.json");
-        
-        // Execute the request
-        XHR.send();
-        
-        // Register readystate event
-        XHR.addEventListener("readystatechange", function(){
-            if((XHR.readyState === 4) && (XHR.status === 200))
-            {
-                let paragraphDataFile = JSON.parse(XHR.responseText);
-                let paragraphs = paragraphDataFile.paragraphs;
-
-                console.log(paragraphs)
-                let paragraphList = [];
-                
-                for (const record of paragraphs) 
-                {
-                    let phrase = new objects.Paragraphs();
-                    phrase.setParagraphs(record);
-                    paragraphList.push(phrase);
-                }
-            
-                let personalMissonParagraph = document.createElement("p");
-                personalMissonParagraph.innerHTML = `${paragraphList[0].paragraph}`;
-                personalMissonParagraph.setAttribute("class", "lead")
-                aboutMeJumbotron.appendChild(personalMissonParagraph);
-                
-            }
-        });
-
-        /*              
-let firstParagraph = document.getElementById("firstParagraph");
-                let firstProjectParagraph = document.createElement("p");
-                firstProjectParagraph.innerHTML = `${paragraphList[0].paragraph}`;
-                firstProjectParagraph.setAttribute("class", "lead");
-                firstParagraph.appendChild(firstProjectParagraph); */
-        /* let aboutMeJumbotron = document.getElementById("aboutMeJumbotron");
-        if (aboutMeJumbotron) 
-        {
-        }
-
-        //Paragraph of First Project
-        let firstParagraph = document.getElementById("firstParagraph");
-        if (firstParagraph) 
-        {
-            let firstProjectParagraph = document.createElement("p");
-    
-            firstProjectParagraph.textContent =
-                `
-                This is a logo that I developed for my mother's business. 
-                It means "Seven Colors" and represents the rainbow colors
-                `;
-    
-            firstProjectParagraph.setAttribute("class", "lead");
-           
-            firstParagraph.appendChild(firstProjectParagraph);
-
-        }*/
-/*
-        //Paragraph of second Project
-        let secondParagraph = document.getElementById("secondParagraph");
-        if (secondParagraph) 
-        {
-            let secondProjectParagraph = document.createElement("p");
-    
-            secondProjectParagraph.textContent =
-                `
-                This other project was a logo that I developed for my old business.
-                I used to develop and sell custom buttons with my husband back in or homecountry.
-                `;
-    
-            secondProjectParagraph.setAttribute("class", "lead");
-           
-            secondParagraph.appendChild(secondProjectParagraph);
-        }
-
-        //Paragraph of third Project
-        let thirdParagraph = document.getElementById("thirdParagraph");
-        if (thirdParagraph) 
-        {
-            let thirdProjectParagraph = document.createElement("p");
-    
-            thirdProjectParagraph.textContent =
-                `
-                This last logo was for a friend's brewry. 
-                It was draw directly on computer with a drawing tablet.
-                `;
-    
-            thirdProjectParagraph.setAttribute("class", "lead");
-           
-            thirdParagraph.appendChild(thirdProjectParagraph);
-        } */
-
-    }  
-
     function loadFooter()
     {
         // Create XHR object
@@ -320,6 +216,44 @@ let firstParagraph = document.getElementById("firstParagraph");
                 main.innerHTML = mainData;
             }
         });
+
+        //Paragraph About Me
+        // Create XHR object
+        let XHRR = new XMLHttpRequest();
+        
+        // Configure the message
+        XHRR.open("GET", "./Data/paragraphs.json");
+        
+        // Execute the request
+        XHRR.send();
+        
+        // Register readystate event
+        XHRR.addEventListener("readystatechange", function(){
+            if((XHRR.readyState === 4) && (XHRR.status === 200))
+            {
+                let paragraphDataFile = JSON.parse(XHRR.responseText);
+                let paragraphs = paragraphDataFile.paragraphs;
+
+                console.log(paragraphs)
+                let paragraphList = [];
+                
+                for (const record of paragraphs) 
+                {
+                    let phrase = new objects.Paragraphs();
+                    phrase.setParagraphs(record);
+                    paragraphList.push(phrase);
+                }
+
+                console.log(paragraphList);
+
+                let aboutMeJumbotron = document.getElementById("aboutMeJumbotron");
+                let personalMissonParagraph = document.createElement("p");
+                personalMissonParagraph.innerHTML = `${paragraphList[0].paragraph}`;
+                personalMissonParagraph.setAttribute("class", "lead")
+                aboutMeJumbotron.appendChild(personalMissonParagraph);
+                
+            }
+        });
     }
 
     function projectsContent()
@@ -341,6 +275,55 @@ let firstParagraph = document.getElementById("firstParagraph");
                 let main = document.getElementsByTagName("main")[0];
                 let mainData = XHR.responseText;
                 main.innerHTML = mainData;
+            }
+        });
+
+        // Create XHR object
+        let XHRR = new XMLHttpRequest();
+        
+        // Configure the message
+        XHRR.open("GET", "./Data/paragraphs.json");
+        
+        // Execute the request
+        XHRR.send();
+        
+        // Register readystate event
+        XHRR.addEventListener("readystatechange", function(){
+            if((XHRR.readyState === 4) && (XHRR.status === 200))
+            {
+                let paragraphDataFile = JSON.parse(XHRR.responseText);
+                let paragraphs = paragraphDataFile.paragraphs;
+
+                console.log(paragraphs)
+                let paragraphList = [];
+                
+                for (const record of paragraphs) 
+                {
+                    let phrase = new objects.Paragraphs();
+                    phrase.setParagraphs(record);
+                    paragraphList.push(phrase);
+                }
+
+                console.log(paragraphList);
+
+                let firstParagraph = document.getElementById("firstParagraph");
+                let firstProjectParagraph = document.createElement("p");
+                firstProjectParagraph.innerHTML = `${paragraphList[1].paragraph}`;
+                firstProjectParagraph.setAttribute("class", "lead")
+                firstParagraph.appendChild(firstProjectParagraph);
+
+                let secondParagraph = document.getElementById("secondParagraph");
+                let secondProjectParagraph = document.createElement("p");
+                secondProjectParagraph.innerHTML = `${paragraphList[2].paragraph}`;
+                secondProjectParagraph.setAttribute("class", "lead")
+                secondParagraph.appendChild(secondProjectParagraph);
+
+                let thirdParagraph = document.getElementById("thirdParagraph");
+                let thirdProjectParagraph = document.createElement("p");
+                thirdProjectParagraph.innerHTML = `${paragraphList[2].paragraph}`;
+                thirdProjectParagraph.setAttribute("class", "lead")
+                thirdParagraph.appendChild(thirdProjectParagraph);
+                
             }
         });
     }
@@ -375,16 +358,6 @@ let firstParagraph = document.getElementById("firstParagraph");
         console.log('%cApp has started...', "color:purple; font-size: 24px;");
        
         initializeSite();
-
-        /* let paragraph = addParagraphsToJumbotron();
-        if(paragraph) 
-        {
-            console.log("Successfully added paragraphs to jumbotron");
-        }
-        else
-        {
-            console.warn("Content not added to jumbotron - does not exist");
-        } */
 
     }
 
