@@ -9,24 +9,19 @@
 
 (function()
 {
-    function getPageTitle(title) 
-    {
-        title = document.title
-        title = title.toLowerCase();
-        console.log(`The title is ${title}`);
-        return title;
-    }
-
-    function highLightActiveLink(title)
+    function highLightActiveLink(id)
     {
        let navbarAnchors = document.querySelectorAll("li a");
 
         for (const anchor of navbarAnchors)
         {
-            let anchorString = anchor.getAttribute("href");
-            anchorString = anchorString.substr(0, anchorString.length - 5);
+            anchor.className = "nav-link";
+        }
+        for (const anchor of navbarAnchors)
+        {
+            let anchorString = anchor.getAttribute("id");
 
-            if ((title === "about") && (anchorString === "index") || (title === anchorString))
+            if (id === anchorString)
             {
                 anchor.className = "nav-link active";
             }
@@ -118,7 +113,7 @@
         return true;
     }
 
-    function loadHeader(title)
+    function loadHeader()
     {
         // Create XHR object
         let XHR = new XMLHttpRequest();
@@ -137,7 +132,34 @@
                 let headerData = XHR.responseText;
                 header.innerHTML = headerData;
 
-                highLightActiveLink(title);
+                let navLinks = document.querySelectorAll("a");
+                for (const link of navLinks) 
+                {
+                    link.addEventListener("click", (event) => {
+                        event.preventDefault();
+
+                        let id = link.getAttribute("id")
+                        document.title = id;
+                        window.history.pushState("", id, "/"+id.toLowerCase());
+                        
+                        highLightActiveLink(id);
+
+                        //Content switcher
+                        switch(id)
+                        {
+                            case "Home":
+                                homeContent();
+                                break;
+                            case "Projects":
+                                projectsContent()
+                                break;
+                            case "Contact":
+                                contactContent();
+                                break;
+                        }
+                    });                   
+                }
+
             }
         });
     }
@@ -343,28 +365,11 @@ let firstParagraph = document.getElementById("firstParagraph");
     function Start ()
     {
         console.log('%cApp has started...', "color:purple; font-size: 24px;");
-        
-        let title = document.title;
-        title = getPageTitle(title);
+       
+        homeContent();
         loadHeader();
 
-        let main = document.getElementsByTagName("main"[0]);
-
-        //Content switcher
-        switch(title)
-        {
-            case "home":
-                homeContent();
-                break;
-            case "projects":
-                projectsContent()
-                break;
-            case "contact":
-                contactContent();
-                break;
-        }
-
-        let paragraph = addParagraphsToJumbotron();
+        /* let paragraph = addParagraphsToJumbotron();
         if(paragraph) 
         {
             console.log("Successfully added paragraphs to jumbotron");
@@ -372,7 +377,7 @@ let firstParagraph = document.getElementById("firstParagraph");
         else
         {
             console.warn("Content not added to jumbotron - does not exist");
-        }
+        } */
 
         loadFooter();
 
