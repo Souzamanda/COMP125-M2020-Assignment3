@@ -9,6 +9,7 @@
 
 (function()
 {
+    //Highlight the active link in the navbar
     function highLightActiveLink(id)
     {
        let navbarAnchors = document.querySelectorAll("li a");
@@ -113,6 +114,7 @@
         return true;
     }
 
+    //Insert content into pages
     function setPageContent(id)
     {
         document.title = id;
@@ -137,6 +139,7 @@
         loadFooter();
     }
 
+    //Insert the header and initialize the setPageContent function
     function initializeSite()
     {
         // Create XHR object
@@ -173,6 +176,7 @@
         });
     }
 
+    //Insert the footer
     function loadFooter()
     {
         // Create XHR object
@@ -195,9 +199,9 @@
         });
     }
 
+    //Insert all content for Home page
     function homeContent()
     {
-        console.log ("Home Content loading...")
         // Create XHR object
         let XHR = new XMLHttpRequest();
 
@@ -217,7 +221,7 @@
             }
         });
 
-        //Paragraph About Me
+        //Inserts the paragraph About Me
         // Create XHR object
         let XHRR = new XMLHttpRequest();
         
@@ -256,6 +260,7 @@
         });
     }
 
+    //Insert all content for Projects page
     function projectsContent()
     {
         console.log ("Projects Content loading...")
@@ -278,6 +283,7 @@
             }
         });
 
+        //Insert all paragraphs for the projects page
         // Create XHR object
         let XHRR = new XMLHttpRequest();
         
@@ -306,18 +312,21 @@
 
                 console.log(paragraphList);
 
+                //First project paragraph
                 let firstParagraph = document.getElementById("firstParagraph");
                 let firstProjectParagraph = document.createElement("p");
                 firstProjectParagraph.innerHTML = `${paragraphList[1].paragraph}`;
                 firstProjectParagraph.setAttribute("class", "lead")
                 firstParagraph.appendChild(firstProjectParagraph);
 
+                //Second project paragraph
                 let secondParagraph = document.getElementById("secondParagraph");
                 let secondProjectParagraph = document.createElement("p");
                 secondProjectParagraph.innerHTML = `${paragraphList[2].paragraph}`;
                 secondProjectParagraph.setAttribute("class", "lead")
                 secondParagraph.appendChild(secondProjectParagraph);
 
+                //Third project paragraph
                 let thirdParagraph = document.getElementById("thirdParagraph");
                 let thirdProjectParagraph = document.createElement("p");
                 thirdProjectParagraph.innerHTML = `${paragraphList[2].paragraph}`;
@@ -328,6 +337,7 @@
         });
     }
 
+    //Insert all content for Contact page
     function contactContent()
     {
         console.log ("Contact Content loading...")
@@ -355,7 +365,7 @@
 
     function Start ()
     {
-        console.log('%cApp has started...', "color:purple; font-size: 24px;");
+        console.log('%cAssignment 3', "color:purple; font-size: 24px;");
        
         initializeSite();
 
